@@ -1,82 +1,44 @@
 'use strict';
 
-console.log('App.js is running!');
+// arguments object - no longer bound with arrow functions
 
-// JSX - JavaScript XML
-
-var app = {
-    title: 'Indecision app',
-    subtitle: 'Put your life in the hands of a computer',
-    options: ['One', 'Two']
+var add = function add(a, b) {
+    // console.log(arguments);
+    return a + b;
 };
+console.log(add(55, 1, 1001));
 
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    app.subtitle && React.createElement(
-        'p',
-        null,
-        app.subtitle
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here are your options' : 'No options'
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item one'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item two'
-        )
-    )
-);
+// this keyword - no longer bound with arrow functions
 
 var user = {
     name: 'Nevin',
-    age: 22,
-    location: 'Lelystad'
-};
-function getLocation(location) {
-    if (location) {
-        return React.createElement(
-            'p',
-            null,
-            'Location: ',
-            location
-        );
+    cities: ['lelystad', 'zwolle', 'amsterdam'],
+    printPlacesLived: function printPlacesLived() {
+        var _this = this;
+
+        return this.cities.map(function (city) {
+            return _this.name + ' has lived in ' + city;
+        });
+
+        // this.cities.forEach((city) => {
+        //     console.log(this.name + ' has lived in ' + city);
+        // });
     }
-}
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        user.name ? user.name : 'Anonymous'
-    ),
-    user.age && user.age >= 18 && React.createElement(
-        'p',
-        null,
-        'Age: ',
-        user.age
-    ),
-    getLocation(user.location)
-);
+};
 
-var appRoot = document.getElementById('app');
+//user.printPlacesLived();
+//console.log(user.printPlacesLived());
 
-ReactDOM.render(template, appRoot);
-//ReactDOM.render(templateTwo, appRoot);
+var multiplier = {
+    numbers: [1, 2, 3],
+    multiplyBy: 2,
+    multiply: function multiply() {
+        var _this2 = this;
+
+        return this.numbers.map(function (number) {
+            return _this2.multiplyBy * number;
+        });
+    }
+};
+
+console.log(multiplier.multiply());
