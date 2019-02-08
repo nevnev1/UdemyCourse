@@ -1,44 +1,34 @@
 'use strict';
 
-// arguments object - no longer bound with arrow functions
-
-var add = function add(a, b) {
-    // console.log(arguments);
-    return a + b;
-};
-console.log(add(55, 1, 1001));
-
-// this keyword - no longer bound with arrow functions
-
-var user = {
-    name: 'Nevin',
-    cities: ['lelystad', 'zwolle', 'amsterdam'],
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
-        return this.cities.map(function (city) {
-            return _this.name + ' has lived in ' + city;
-        });
-
-        // this.cities.forEach((city) => {
-        //     console.log(this.name + ' has lived in ' + city);
-        // });
-    }
+var showOrHide = false;
+var onVisibility = function onVisibility() {
+    showOrHide = !showOrHide;
+    render();
 };
 
-//user.printPlacesLived();
-//console.log(user.printPlacesLived());
+var appRoot = document.getElementById('app');
+var render = function render() {
+    var template = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            null,
+            'Visibility Toggle'
+        ),
+        React.createElement(
+            'button',
+            { onClick: onVisibility },
+            showOrHide ? 'Hide details' : 'Show details'
+        ),
+        showOrHide && React.createElement(
+            'p',
+            null,
+            'Some details here.'
+        )
+    );
 
-var multiplier = {
-    numbers: [1, 2, 3],
-    multiplyBy: 2,
-    multiply: function multiply() {
-        var _this2 = this;
-
-        return this.numbers.map(function (number) {
-            return _this2.multiplyBy * number;
-        });
-    }
+    ReactDOM.render(template, appRoot);
 };
 
-console.log(multiplier.multiply());
+render();
